@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1c1915;
+  --color-ink-soft: #2a241c;
+  --color-parchment: #f3eee4;
+  --color-parchment-deep: #e7dfd0;
+  --color-gold: #a6853d;
+  --color-gold-bright: #c6a15a;
+  --color-gold-deep: #6d5521;
+  --color-fg: #1f1a14;
+  --color-muted: #6d6458;
+  --color-line: #d9d0c0;
+  --color-good: #1f5c40;
+  --color-good-soft: #e5f2ea;
+  --color-bad: #8d332c;
+  --color-bad-soft: #f8e8e6;
+  --font-display: "Fraunces", "Iowan Old Style", Palatino, serif;
+  --font-sans: "Source Sans 3", "Segoe UI", sans-serif;
+  --radius-card: 1.25rem;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+  html,
+  body {
+    background: var(--color-ink);
+    color: var(--color-parchment);
+    font-family: var(--font-sans);
+    min-height: 100%;
+  }
+  button,
+  a,
+  label {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  body {
+    margin: 0;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 220ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+@keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.02); box-shadow: 0 0 0 6px rgb(176 141 62 / 0.35); } 100% { transform: scale(1); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.pop { animation: pop 450ms ease-out; }
+.shake { animation: shake 350ms ease-in-out; }
+@media (prefers-reduced-motion: reduce) { .pop, .shake { animation: none; } }
+
+[data-theme="midnight"] { --color-ink: #0f1420; --color-ink-soft: #18202f; --color-gold: #5f87c4; --color-gold-bright: #8db4ea; }
+[data-theme="emerald"] { --color-ink: #0e1f18; --color-ink-soft: #16302a; --color-gold: #3f8f6a; --color-gold-bright: #6fcf9f; }
+[data-theme="royal"] { --color-ink: #1a1029; --color-ink-soft: #271a3d; --color-gold: #8a63c2; --color-gold-bright: #b890e8; }
+[data-theme="sunrise"] { --color-ink: #261410; --color-ink-soft: #38201a; --color-gold: #c9792c; --color-gold-bright: #f0a04b; }
+
+@keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+.confetti { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 20; }
+.confetti i { position: absolute; top: -16px; width: 8px; height: 14px; border-radius: 2px; animation: fall linear forwards; }
+@media (prefers-reduced-motion: reduce) { .confetti { display: none; } }
+
+/* ---------- Didaskalia look: gilded manuscript on deep ink ---------- */
+
+@layer components {
+  .app-bg {
+    background:
+      radial-gradient(900px 520px at 10% -8%, color-mix(in srgb, var(--color-gold) 24%, transparent), transparent 62%),
+      radial-gradient(700px 480px at 105% 4%, color-mix(in srgb, var(--color-gold-bright) 10%, transparent), transparent 58%),
+      var(--color-ink);
+  }
+  .card {
+    border: 1px solid color-mix(in srgb, var(--color-parchment) 12%, transparent);
+    background: color-mix(in srgb, var(--color-parchment) 5%, transparent);
+    border-radius: 1.25rem;
+  }
+  .card-gold {
+    border: 1px solid color-mix(in srgb, var(--color-gold) 55%, transparent);
+    background: color-mix(in srgb, var(--color-gold) 12%, transparent);
+    border-radius: 1.25rem;
+  }
+  .hero {
+    color: var(--color-ink);
+    background:
+      radial-gradient(120% 140% at 0% 0%, var(--color-gold-bright) 0%, var(--color-gold) 48%, color-mix(in srgb, var(--color-gold) 38%, var(--color-ink)) 100%);
+    box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--color-gold) 70%, transparent);
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-gold-bright);
+  }
+  .btn {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+    transition: transform 120ms ease, background-color 120ms ease, opacity 120ms ease;
+  }
+  .btn:active:not(:disabled) { transform: scale(0.98); }
+  .btn:disabled { opacity: 0.45; }
+  .btn-gold { background: var(--color-gold-bright); color: var(--color-ink); }
+  .btn-gold:hover:not(:disabled) { background: color-mix(in srgb, var(--color-gold-bright) 88%, white); }
+  .btn-light { background: var(--color-parchment); color: var(--color-fg); }
+  .btn-ghost { border: 1px solid color-mix(in srgb, var(--color-parchment) 28%, transparent); color: var(--color-parchment); }
+  .btn-ghost:hover:not(:disabled) { background: color-mix(in srgb, var(--color-parchment) 8%, transparent); }
+  .btn-danger { border: 1px solid color-mix(in srgb, #e0707a 55%, transparent); color: #f0a3a9; }
+  .input {
+    min-height: 3rem;
+    width: 100%;
+    border-radius: 1rem;
+    border: 1px solid color-mix(in srgb, var(--color-parchment) 25%, transparent);
+    background: color-mix(in srgb, var(--color-ink) 70%, var(--color-parchment) 4%);
+    padding: 0.5rem 0.9rem;
+    color: var(--color-parchment);
+  }
+  .input::placeholder { color: color-mix(in srgb, var(--color-parchment) 45%, transparent); }
+  .input:focus-visible, .btn:focus-visible, button:focus-visible, a:focus-visible {
+    outline: 2px solid var(--color-gold-bright);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes slide-in { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.drawer-panel { animation: slide-in 220ms cubic-bezier(0.22, 1, 0.36, 1); }
+.drawer-scrim { animation: fade-in 200ms ease-out; }
+@media (prefers-reduced-motion: reduce) { .drawer-panel, .drawer-scrim { animation: none; } }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

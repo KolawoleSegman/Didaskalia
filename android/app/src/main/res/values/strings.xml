@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Didaskalia</string>
+    <string name="title_activity_main">Didaskalia</string>
+    <string name="package_name">com.didaskalia.app</string>
+    <string name="custom_url_scheme">com.didaskalia.app</string>
+</resources>
